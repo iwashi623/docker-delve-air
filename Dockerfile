@@ -1,14 +1,17 @@
 FROM golang:1.23 AS builder
-
 WORKDIR /app
 COPY go.mod ./
 
-RUN go mod download
-COPY . .
+RUN --mount=type=cache,target=/go/pkg/mod/,sharing=locked \
+    --mount=type=bind,source=go.sum,target=go.sum \
+    --mount=type=bind,source=go.mod,target=go.mod \
+    go mod download -x
+RUN --mount=type=cache,target=/go/pkg/mod/ \
+    --mount=type=bind,target=. \
+    go build -o /bin/myapp
 
-RUN go build -o myapp
+FROM debian:bookworm-slim
+WORKDIR /app
+COPY --from=builder /bin/myapp /app/myapp
 
-FROM gcr.io/distroless/static-debian12
-COPY --from=builder /app/myapp .
-
-CMD ["./myapp"]
+CMD ["/app/myapp"]
