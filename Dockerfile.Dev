@@ -1,8 +1,6 @@
 FROM golang:1.23 AS builder
 WORKDIR /app
 
-ARG APP_ENV=production
-
 RUN go install github.com/air-verse/air@latest && \
     go install github.com/go-delve/delve/cmd/dlv@latest
 

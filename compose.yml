@@ -3,10 +3,9 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.Dev
-      args:
-        APP_ENV: development
     ports:
-      - "3000:3000"
+      - '${PORT:-3000}:${PORT:-3000}'
+      - '${DEBUG_PORT:-2345}:${DEBUG_PORT:-2345}'
     env_file:
       - .env
     volumes:
