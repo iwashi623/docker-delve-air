@@ -2,11 +2,12 @@ services:
   app:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.Dev
       args:
         APP_ENV: development
-      target: dev
     ports:
       - "3000:3000"
     env_file:
       - .env
+    volumes:
+      - .:/app
