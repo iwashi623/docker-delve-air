@@ -1,7 +1,7 @@
 package main
 
 import (
-	"fmt"
+	"docker-delve-air/handler"
 
 	"github.com/labstack/echo/v4"
 )
@@ -9,11 +9,11 @@ import (
 func main() {
 	e := echo.New()
 	e.GET("/", rootHandler)
-	e.GET("/hello", helloHandler)
+	e.GET("/hello", handler.HelloHandler)
+	e.GET("/hello/:user_name", handler.HelloUserHandler)
 	e.Logger.Fatal(e.Start(":3333"))
 }
 
 func rootHandler(c echo.Context) error {
-	fmt.Println("Hello, World!")
-	return c.String(200, "Hello, World!")
+	return c.String(200, "Root Handler")
 }
