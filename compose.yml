@@ -4,7 +4,7 @@ services:
       context: .
       dockerfile: Dockerfile.Dev
     ports:
-      - '${PORT:-3000}:${PORT:-3000}'
+      - '${PORT:-3333}:${PORT:-3333}'
       - '${DEBUG_PORT:-2345}:${DEBUG_PORT:-2345}'
     env_file:
       - .env
