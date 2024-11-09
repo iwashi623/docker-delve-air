@@ -11,6 +11,7 @@ func main() {
 	e.GET("/", rootHandler)
 	e.GET("/hello", handler.HelloHandler)
 	e.GET("/hello/:user_name", handler.HelloUserHandler)
+
 	e.Logger.Fatal(e.Start(":3333"))
 }
 
